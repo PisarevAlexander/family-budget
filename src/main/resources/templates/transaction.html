@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+
+<head>
+    <meta charset="UTF-8">
+    <title>Family budget</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Family budget</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/users}">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/transactionget}">Get transaction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout/}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="w3-container w3-teal">
+    <h2>Transaction controller</h2>
+    <p>Create transaction</p>
+
+    <form method="post" role="form"
+          th:action="@{/transaction/save}" th:object="${transaction}">
+
+        <div class="form-group mb-3">
+        <label for="date">Date abd time transaction</label>
+        <input
+                type="datetime-local"
+                id="date"
+                name="date"
+                value="2018-06-12T19:30"
+                th:field="*{date}"
+                 >
+            <p th:errors="*{date}" class="text-danger"
+               th:if="${#fields.hasErrors('date')}">
+            </p>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="type">Choose type:</label>
+            <input
+                    list="type"
+                    name="type"
+                    th:field="*{type}"
+            />
+            <datalist id="type">
+                <option value="COMING">
+                <option value="CONSUMPTION">
+            </datalist>
+            <p th:errors="*{type}" class="text-danger"
+               th:if="${#fields.hasErrors('type')}">
+            </p>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="category">Choose category:</label>
+            <input
+                    list="category"
+                    name="category"
+                    th:field="*{category}"
+            />
+            <datalist id="category">
+                <option value="SALARY">
+                <option value="PRESENT">
+                <option value="FOOD">
+                <option value="CREDIT">
+                <option value="ENTERTAINMENT">
+            </datalist>
+            <p th:errors="*{category}" class="text-danger"
+               th:if="${#fields.hasErrors('category')}">
+            </p>
+        </div>
+
+
+        <div class="form-group mb-3">
+            <label class="form-label">Count</label>
+            <input class="form-control"
+                   id="count"
+                   name="count"
+                   placeholder="Enter count"
+                   th:field="*{count}"
+                   type="number"
+            />
+            <p th:errors="*{count}" class="text-danger"
+               th:if="${#fields.hasErrors('count')}">
+            </p>
+        </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Create transaction</button>
+    </form>
+</div>
+
+<form method="post" role="form"
+      th:action="@{/transaction/update}" th:object="${transaction}"
+<div class="form-group mb-3">
+    <h2> </h2>
+    <p>Update transaction</p>
+    <div class="form-group mb-3">
+        <label class="form-label">Transaction id</label>
+        <input class="form-control"
+               id="transactionId"
+               name="transactionId"
+               placeholder="Enter transaction id"
+               type="number"
+        />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="date">Date abd time transaction</label>
+        <input
+                type="datetime-local"
+                id="date"
+                name="date"
+                value="2018-06-12T19:30"
+                th:field="*{date}"
+        >
+        <p th:errors="*{date}" class="text-danger"
+           th:if="${#fields.hasErrors('date')}">
+        </p>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="type">Choose type:</label>
+        <input
+                list="type"
+                name="type"
+                th:field="*{type}"
+        />
+        <datalist id="type">
+            <option value="COMING">
+            <option value="CONSUMPTION">
+        </datalist>
+        <p th:errors="*{type}" class="text-danger"
+           th:if="${#fields.hasErrors('type')}">
+        </p>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="category">Choose category:</label>
+        <input
+                list="category"
+                name="category"
+                th:field="*{category}"
+        />
+
+        <datalist id="category">
+            <option value="SALARY">
+            <option value="PRESENT">
+            <option value="FOOD">
+            <option value="CREDIT">
+            <option value="ENTERTAINMENT">
+        </datalist>
+
+        <select>
+            <option value="apple">Apple</option>
+            <option value="banana">Banana</option>
+            <option value="orange">Orange</option>
+            <option value="pear">Pear</option>
+        </select>
+
+        <p th:errors="*{category}" class="text-danger"
+           th:if="${#fields.hasErrors('category')}">
+        </p>
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="form-label">Count</label>
+        <input class="form-control"
+               id="count"
+               name="count"
+               placeholder="Enter count"
+               th:field="*{count}"
+               type="number"
+        />
+        <p th:errors="*{count}" class="text-danger"
+           th:if="${#fields.hasErrors('count')}">
+        </p>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update transaction</button>
+</div>
+</form>
+
+<form action="/transaction/delete" method="post"
+<div class="form-group mb-3">
+    <h2> </h2>
+    <p>Delete transaction</p>
+    <div class="form-group mb-3">
+        <label class="form-label">Transaction id</label>
+        <input class="form-control"
+               id="transactionId"
+               name="transactionId"
+               placeholder="Enter transaction id"
+               type="number"
+        />
+    </div>
+    <button type="submit" class="btn btn-primary">Delete transaction</button>
+</div>
+</form>
+
+</body>
+</html>

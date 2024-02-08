@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+
+<head>
+    <meta charset="UTF-8">
+    <title>Family budget</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Family budget</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/users}">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/transaction}">Create transaction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout/}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<form action="/transactionget" method="get"
+<div class="form-group mb-3">
+    <div class="form-group mb-3">
+        <label class="form-label">Get transaction by id</label>
+        <input class="form-control"
+               id="transactionId"
+               name="transactionId"
+               placeholder="Enter transaction id"
+               type="number"
+        />
+    </div>
+    <button type="submit" class="btn btn-primary">Get transaction</button>
+</div>
+</form>
+
+<form action="/transactionget" method="get"
+<div class="form-group mb-3">
+    <div class="form-group mb-3">
+        <label for="date">Start date</label>
+        <input
+                type="datetime-local"
+                id="date"
+                name="date"
+                value="2018-06-12T19:30"
+        >
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="date">End date</label>
+        <input
+                type="datetime-local"
+                id="date"
+                name="date"
+                value="2018-06-12T19:30"
+        >
+    </div>
+
+    <button type="submit" class="btn btn-primary">Get transaction list</button>
+</div>
+</form>
+
+<table>
+    <thead>
+    <tr class="headings">
+        <th th:each="header: ${headers}" class="column-title" th:text="${header}" />
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr class="even pointer" th:each="row: ${rows}" id="tablerow">
+        <td th:each="header: ${headers}" th:text="${row.get(header)}" />
+    </tr>
+    </tbody>
+
+    <tr>
+        <th>id</th>
+        <th>date</th>
+        <th>type</th>
+        <th>category</th>
+        <th>count</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <th>08.02.24</th>
+        <th>Coming</th>
+        <th>Food</th>
+        <th>2</th>
+    </tr>
+    <tr>
+        <td>
+            <input class="form-control"
+                   id="transactionId"
+                   name="transactionId"
+                   placeholder="id"
+                   type="number"
+                   readonly="readonly"
+            />
+        </td>
+        <td>
+            <input class="form-control"
+                   id="date"
+                   name="date"
+                   placeholder="today"
+                   type="date"
+            />
+        </td>
+        <td>
+            <input class="form-control"
+                   id="type"
+                   name="type"
+                   placeholder="in/out"
+                   type="text"
+            />
+        </td>
+        <td>
+            <input class="form-control"
+                   id="category"
+                   name="category"
+                   placeholder="food/tech/etc"
+                   type="text"
+            />
+        </td>
+        <td>
+            <input class="form-control"
+                   id="count"
+                   name="count"
+                   placeholder="count"
+                   type="number"
+            />
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
