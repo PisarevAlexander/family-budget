@@ -3,6 +3,8 @@ package com.pisarevAS.familybudget.transaction.service;
 import com.pisarevAS.familybudget.transaction.model.Transaction;
 import com.pisarevAS.familybudget.transaction.model.TransactionDto;
 
+import java.util.List;
+
 public interface TransactionService {
 
     TransactionDto create(String date, String type, String category, String count);
@@ -13,7 +15,9 @@ public interface TransactionService {
 
     void update(String transactionId, String date, String type, String category, String count);
 
-    String findById(String transactionId);
+    List<Transaction> findById(String transactionId);
 
-    String findByDateRange(String startDate, String endDate);
+    List<Transaction> findByDateRange(String startDate, String endDate);
+
+    List<TransactionDto> createTransactionsDtos(List<Transaction> transactions);
 }

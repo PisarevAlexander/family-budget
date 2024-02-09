@@ -34,117 +34,70 @@
     </div>
 </nav>
 
-<form action="/transactionget" method="get"
-<div class="form-group mb-3">
-    <div class="form-group mb-3">
-        <label class="form-label">Get transaction by id</label>
-        <input class="form-control"
-               id="transactionId"
-               name="transactionId"
-               placeholder="Enter transaction id"
-               type="number"
-        />
-    </div>
-    <button type="submit" class="btn btn-primary">Get transaction</button>
-</div>
-</form>
-
-<form action="/transactionget" method="get"
-<div class="form-group mb-3">
-    <div class="form-group mb-3">
-        <label for="date">Start date</label>
-        <input
-                type="datetime-local"
-                id="date"
-                name="date"
-                value="2018-06-12T19:30"
-        >
-    </div>
-
-    <div class="form-group mb-3">
-        <label for="date">End date</label>
-        <input
-                type="datetime-local"
-                id="date"
-                name="date"
-                value="2018-06-12T19:30"
-        >
-    </div>
-
-    <button type="submit" class="btn btn-primary">Get transaction list</button>
-</div>
-</form>
-
-<table>
+<table style="width:90%" >
     <thead>
-    <tr class="headings">
-        <th th:each="header: ${headers}" class="column-title" th:text="${header}" />
+    <tr>
+        <th style="width:25%"> Date </th>
+        <th style="width:15%"> Type </th>
+        <th style="width:15%"> Category </th>
+        <th style="width:15%"> Count </th>
+        <th style="width:20%">  </th>
     </tr>
     </thead>
-
     <tbody>
-    <tr class="even pointer" th:each="row: ${rows}" id="tablerow">
-        <td th:each="header: ${headers}" th:text="${row.get(header)}" />
+    <tr th:if="${transactions.empty}">
+        <td colspan="2"> No Transactions Available </td>
+    </tr>
+    <tr th:each="transaction : ${transactions}">
+        <!--        <td><span th:text="${transaction.date}"> Date </span></td>-->
+        <!--        <td><span th:text="${transaction.type}"> Type </span></td>-->
+        <!--        <td><span th:text="${transaction.category}"> Category </span></td>-->
+        <!--        <td><span th:text="${transaction.count}"> Count </span></td>-->
+        <form action="" method="post">
+            <td>
+                <input class="form-control"
+                       id="transactionDate"
+                       name="transactionDate"
+                       placeholder="CurrentDate"
+                       disabled="disabled"
+                       type="text"
+                       th:value="${transaction.date}"
+                />
+            </td>
+            <td>
+                <input class="form-control"
+                       id="transactionType"
+                       name="transactionType"
+                       placeholder="Type"
+                       type="text"
+                       th:value="${transaction.type}"
+                />
+            </td>
+            <td>
+                <input class="form-control"
+                       id="transactionCategory"
+                       name="transactionCategory"
+                       placeholder="Category"
+                       type="text"
+                       th:value="${transaction.category}"
+                />
+            </td>
+            <td>
+                <input class="form-control"
+                       id="transactionCount"
+                       name="transactionCount"
+                       placeholder="Count"
+                       type="number"
+                       th:value="${transaction.count}"
+                />
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary" action="/transaction/delete" method="post">Update transaction</button>
+                <button type="submit" class="btn btn-primary" action="/transaction/delete" method="post">Delete transaction</button>
+            </td>
+        </form>
     </tr>
     </tbody>
-
-    <tr>
-        <th>id</th>
-        <th>date</th>
-        <th>type</th>
-        <th>category</th>
-        <th>count</th>
-    </tr>
-    <tr>
-        <th>1</th>
-        <th>08.02.24</th>
-        <th>Coming</th>
-        <th>Food</th>
-        <th>2</th>
-    </tr>
-    <tr>
-        <td>
-            <input class="form-control"
-                   id="transactionId"
-                   name="transactionId"
-                   placeholder="id"
-                   type="number"
-                   readonly="readonly"
-            />
-        </td>
-        <td>
-            <input class="form-control"
-                   id="date"
-                   name="date"
-                   placeholder="today"
-                   type="date"
-            />
-        </td>
-        <td>
-            <input class="form-control"
-                   id="type"
-                   name="type"
-                   placeholder="in/out"
-                   type="text"
-            />
-        </td>
-        <td>
-            <input class="form-control"
-                   id="category"
-                   name="category"
-                   placeholder="food/tech/etc"
-                   type="text"
-            />
-        </td>
-        <td>
-            <input class="form-control"
-                   id="count"
-                   name="count"
-                   placeholder="count"
-                   type="number"
-            />
-        </td>
-    </tr>
 </table>
 
 </body>

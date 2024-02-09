@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,19 +57,19 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public String findById(String transactionId) {
+    public List<Transaction> findById(String transactionId) {
         User user = userService.getByLogin();
         Transaction transaction = transactionRepository.findByIdAndUser(Long.parseLong(transactionId), user)
                 .orElseThrow(() -> new NotFoundException("Transaction mot found"));
-        return transaction.toString();
+        return List.of(transaction);
     }
 
     @Override
-    public String findByDateRange(String startDate, String endDate) {
+    public List<Transaction> findByDateRange(String startDate, String endDate) {
         User user = userService.getByLogin();
         List<Transaction> transactions = transactionRepository.findAllByUserAndDateAfterAndDateBefore(user,
                 LocalDateTime.parse(startDate, timeFormatter), LocalDateTime.parse(endDate, timeFormatter));
-        return transactions.toString();
+        return transactions;
     }
 
     @Override
@@ -82,5 +83,13 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(() -> new NotFoundException("Id " + transactionId + " not found"));
     }
 
+    @Override
+    public List<TransactionDto> createTransactionsDtos(List<Transaction> transactions) {
+        List<TransactionDto> transactionDtos = new ArrayList<>();
+        for (Transaction transaction : transactions){
+            transactionDtos.add(TransactionMapper.toTransactionDto(transaction));
+        }
+        return transactionDtos;
+    }
 
 }
